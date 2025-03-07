@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Пости автора: {{ author.username }}
+{% endblock %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="title">
+    <h1>Публікації {{author.username}}</h1>
+</div>
+<div class="posts">
+    {% for post in page_obj %}
+    <a href="{% url 'detail_post' post.slug %}">
+        <div class="post">
+            {{ post.title }}
+            {{ post.content|truncatechars:30|safe }}
+            <a href="{% url 'post_by_author' post.author.username %}">{{post.author}}</a>
+            {% if user.is_authenticated %}
+                {% if post.author == request.user %}
+                    <a href="{% url 'edit_post' post.slug %}" type="button">Редагувати</a>
+                    <a href="{% url 'delete_post' post.pk %}" type="button">Видалити</a>
+                {% endif%}
+            {% endif %}
+        </div>
+    </a>
+    {% endfor %}
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+            <a href="?status={{ status }}&page={{ page_obj.previous_page_number }}">Попередня</a>
+            {% endif %}
+
+            <span>Сторінка {{ page_obj.number }} з {{ page_obj.paginator.num_pages }}</span>
+
+            {% if page_obj.has_next %}
+            <a href="?status={{ status }}&page={{ page_obj.next_page_number }}">Наступна</a>
+            {% endif %}
+        </span>
+    </div>
+</div>
+{% endblock %}

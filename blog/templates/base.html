@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <title>{% block title %} {% endblock %}</title>
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+    <header>
+    <div class="header">
+        <div class="blog_name">
+            <a href="/">My Blog</a>
+        </div>
+        <div class="categories">
+            {% for category in categories%}
+                <a href="{% url 'post_by_category' category.slug %}">{{ category.title }}</a>
+            {% endfor %}
+        </div>
+        <div class="header">
+            <div class="auth_user">
+                {% if user.is_authenticated %}
+                    {% if user.is_staff %}
+                        <a href="{% url 'create_post' %}">Новий пост</a>
+                    {% endif %}
+                    <a href="{% url 'post_by_author' user.username %}">{{user.username}}</a>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Вийти</button>
+                    </form>
+                    {% else %}
+                    <a href="{% url 'login' %}">Увійти</a>
+                <a href="{% url 'register' %}">Зареєструватися</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    </header>
+
+    <main>
+        <section class="content">
+            {% block body %}{% endblock %}
+        </section>
+    </main>
+</body>
+
+</html>

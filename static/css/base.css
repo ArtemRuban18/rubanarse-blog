@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+}
+
+a:hover {
+    color: #111213;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+}
+
+header .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+header .blog_name a {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+}
+
+header .categories a,
+header .auth_user a {
+    margin: 0 15px;
+    color: white;
+}
+
+header .categories a:hover,
+header .auth_user a:hover {
+    color: #111213;
+    font-display: flex;
+    width: 300px;
+}
+
+main {
+    padding: 20px;
+}
+
+.content {
+    margin-bottom: 40px;
+}

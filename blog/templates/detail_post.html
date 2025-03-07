@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{ post.title }}
+{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{% static 'css/detail_post.css' %}">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="detail_post">
+        <h1 class="post_title">{{ post.title }}</h1>
+        <p class="post_content">{{ post.content|safe }}</p>
+        <p class="post_meta">
+            Автор: <a href="{% url 'post_by_author' post.author.username %}">{{ post.author }}</a> -
+            Дата: {{ post.created_at|date:"d M Y" }}
+        </p>
+    </div>
+    <div class="auth-container">
+        <div class="auth-form">
+            <form action="" method="post" class="create-post-form">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit" class="submit-btn">Create Post</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
