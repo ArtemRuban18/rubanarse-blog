@@ -57,7 +57,7 @@ docker-compose run django python manage.py migrate
 docker-compose run django python manage.py runserver
 ```
 
-Create superuser:
+To access the Django admin panel, you need to create a superuser:
 ```
 docker-compose run django python manage.py createsuperuser
 ```
