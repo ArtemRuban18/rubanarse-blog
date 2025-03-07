@@ -16,6 +16,7 @@ Blog created on Django + PostgreSQL and launched in conteiners using Docker, all
 - User authentication and registration 
 - Ability to change a password
 - Logging
+- Posts pagination
 
 ## Getting started
 
